@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#e94560">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Hotbutter Voice</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>🦞 Hotbutter Voice 🦞</h1>
+      <p class="tagline">Talk to your AI agent — just add butter</p>
+      <div id="connection-status" class="status">Disconnected</div>
+      <button id="end-session-btn" class="end-session-btn hidden">End Session</button>
+    </header>
+
+    <!-- Pairing screen -->
+    <div id="pairing-screen" class="screen active">
+      <div class="logo">&#127908;</div>
+      <p>Enter the 6-digit pairing code shown by your agent to start a voice session.</p>
+      <input id="code-input" type="text" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="off">
+      <button id="pair-btn">Connect</button>
+      <div id="pair-error"></div>
+    </div>
+
+    <!-- Chat screen -->
+    <div id="chat-screen" class="screen">
+      <div id="live-area">
+        <div id="speaker-label"></div>
+        <div id="live-text"></div>
+      </div>
+      <button id="mic-btn" class="mic-on" aria-label="Toggle microphone">
+        <svg id="mic-icon" viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+          <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.93V21h2v-3.07A7 7 0 0 0 19 11h-2z"/>
+        </svg>
+        <svg id="mic-off-icon" viewBox="0 0 24 24" width="32" height="32" fill="currentColor" class="hidden">
+          <path d="M19 11h-2a5 5 0 0 1-.78 2.68l1.46 1.46A6.96 6.96 0 0 0 19 11zM12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6c0 .35.06.69.18 1l4.47 4.47A2.97 2.97 0 0 0 12 14zm-1 3.93V21h2v-3.07a6.97 6.97 0 0 0 2.54-.89l-1.43-1.43A4.98 4.98 0 0 1 12 16a5 5 0 0 1-5-5H5a7 7 0 0 0 6 6.93zM3.27 3L2 4.27l6 6V11a4 4 0 0 0 .65 2.15L2 19.85 3.41 21.26l18-18L20 1.73l-6 6V5a3 3 0 0 0-6 0v1.73L3.27 3z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <footer style="position:fixed;bottom:12px;left:0;right:0;text-align:center;font-size:0.75rem;color:#8892a4;">
+    <a href="https://hotbutter.ai" style="color:#e94560;text-decoration:none;">hotbutter.ai</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://x.com/DnuLkjkjh" style="color:#8892a4;text-decoration:none;" target="_blank" rel="noopener">@DnuLkjkjh</a>
+  </footer>
+
+  <script src="js/ws.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

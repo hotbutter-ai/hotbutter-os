@@ -1,0 +1,298 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #1a1a2e;
+  --surface: #16213e;
+  --surface2: #0f3460;
+  --accent: #e94560;
+  --accent-dim: #c73652;
+  --text: #eee;
+  --text-muted: #8892a4;
+  --radius: 12px;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --viewport-height: 100vh;
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-text-size-adjust: 100%;
+}
+
+/* --- Layout --- */
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: var(--viewport-height, 100vh);
+  max-width: 480px;
+  margin: 0 auto;
+  padding-top: var(--sat);
+  padding-left: var(--sal);
+  padding-right: var(--sar);
+}
+
+header {
+  padding: 16px 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--surface2);
+  position: relative;
+}
+
+header h1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+header .tagline {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+header .status {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+header .status.connected { color: #4ade80; }
+header .status.error { color: var(--accent); }
+
+/* --- End Session button --- */
+
+.end-session-btn {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  touch-action: manipulation;
+}
+
+.end-session-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.end-session-btn.hidden {
+  display: none;
+}
+
+/* --- Screens --- */
+
+.screen { display: none; flex: 1; flex-direction: column; }
+.screen.active { display: flex; }
+
+/* --- Pairing screen --- */
+
+#pairing-screen {
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  gap: 24px;
+}
+
+#pairing-screen .logo {
+  font-size: 3rem;
+  opacity: 0.8;
+}
+
+#pairing-screen p {
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+#code-input {
+  width: 200px;
+  font-size: 2rem;
+  text-align: center;
+  letter-spacing: 8px;
+  padding: 12px 16px;
+  border: 2px solid var(--surface2);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#code-input:focus {
+  border-color: var(--accent);
+}
+
+#code-input::placeholder {
+  letter-spacing: 4px;
+  font-size: 1.4rem;
+  color: var(--text-muted);
+}
+
+#pair-btn {
+  padding: 14px 48px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+  touch-action: manipulation;
+}
+
+#pair-btn:hover { background: var(--accent-dim); }
+#pair-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+#pair-error {
+  color: var(--accent);
+  font-size: 0.85rem;
+  min-height: 20px;
+}
+
+/* --- Chat screen (full-duplex voice) --- */
+
+#chat-screen {
+  padding: 0;
+  position: relative;
+}
+
+#live-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 24px;
+  text-align: center;
+  overflow-y: auto;
+}
+
+#speaker-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  min-height: 1.2em;
+}
+
+#live-text {
+  font-size: 1.6rem;
+  line-height: 1.4;
+  color: var(--text);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* --- Mic button --- */
+
+#mic-btn {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: all 0.2s;
+  margin: 0 auto calc(24px + var(--sab));
+  flex-shrink: 0;
+}
+
+#mic-btn:hover { background: rgba(233, 69, 96, 0.1); }
+
+#mic-btn.mic-on {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+#mic-btn.mic-muted {
+  border-color: var(--text-muted);
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+#mic-btn.listening {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 0 0 8px rgba(233, 69, 96, 0.2);
+  animation: pulse 1.5s infinite;
+}
+
+#mic-btn .hidden {
+  display: none;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 8px rgba(233, 69, 96, 0.2); }
+  50% { box-shadow: 0 0 0 16px rgba(233, 69, 96, 0.1); }
+}
+
+/* --- Reconnecting overlay --- */
+
+#reconnecting-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 26, 46, 0.92);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+#reconnecting-overlay.active {
+  display: flex;
+}
+
+.reconnecting-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.reconnecting-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--surface2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.reconnecting-text {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}

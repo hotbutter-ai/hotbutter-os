@@ -1,0 +1,16 @@
+{
+  "name": "@hotbutter/voice-skill-opensource",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OpenClaw skill — self-contained voice chat with embedded relay",
+  "bin": {
+    "voice-bridge": "./bin/voice-bridge.js"
+  },
+  "scripts": {
+    "start": "node bin/voice-bridge.js start"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "ws": "^8.18.0"
+  }
+}
