@@ -2,12 +2,20 @@
   "name": "@hotbutter/voice-skill-opensource",
   "version": "0.1.0",
   "private": true,
-  "description": "OpenClaw skill — self-contained voice chat with embedded relay",
+  "description": "OpenClaw skill — voice chat with embedded relay. Executes the local 'openclaw' CLI binary to process each agent turn.",
   "bin": {
     "voice-bridge": "./bin/voice-bridge.js"
   },
   "scripts": {
     "start": "node bin/voice-bridge.js start"
+  },
+  "requiredBinaries": ["openclaw"],
+  "openclaw": {
+    "skill": true,
+    "requires": {
+      "binaries": ["openclaw"],
+      "description": "Runs 'openclaw agent --session-id <id> -m <text>' for each voice message to get agent responses"
+    }
   },
   "dependencies": {
     "express": "^4.21.0",
